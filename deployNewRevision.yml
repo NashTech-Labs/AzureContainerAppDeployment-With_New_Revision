@@ -1,1 +1,26 @@
-#
+parameters:
+ - name: dockerImage
+   type: string
+ - name: dockerImageTag
+   type: string
+ - name: azureSubscription
+   type: string
+ - name: resourceGroup
+   type: string
+ - name: containerAppName
+   type: string
+ - name: requiredCpu
+   type: string
+ - name: requiredMemory
+   type: string
+
+steps:
+- task: AzureCLI@2
+  displayName: Deploy With new Revision
+  inputs:
+    azureSubscription: ${{ parameters.azureSubscription }}
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az extension add --name containerapp -y --allow-preview true
+      az containerapp revision copy -n ${{ parameters.containerAppName }} -g ${{ parameters.resourceGroup }} --image ${{ parameters.dockerImage }}:${{ parameters.dockerImageTag }} --cpu ${{ parameters.requiredCpu }} --memory ${{ parameters.requiredMemory }}
