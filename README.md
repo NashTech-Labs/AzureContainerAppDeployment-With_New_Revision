@@ -1,4 +1,4 @@
-# Container App Deployment with new revision
+# Container App Deployment With New Revision
 
 This template provides a streamlined way to deploy a containerized application to new revision for your new deployment to Azure Container Apps using Azure Pipelines.
 
